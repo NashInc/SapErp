@@ -475,16 +475,12 @@ namespace TokenBasedAPI.Controllers
                     }
                     else
                     {
-                        querystring = "SELECT T0.DocEntry,T0.DocNum, T0.DocType,T0.Canceled, T0.Handwrtten, T0.Printed, T0.DocDate," +
-                            " T0.DocDueDate, T0.CardCode, T0.CardName, T0.DdctPrcnt, T0.DdctSum, T0.DdctSumFC, T0.CashAcct, " +
-                            "T0.CashSum, T0.CashSumFC, T0.CreditSum, T0.CredSumFC, T0.CheckAcct, T0.CheckSum, T0.CheckSumFC, T0.TrsfrAcct, " +
-                            "T0.TrsfrSum, T0.TrsfrSumFC, T0.TrsfrDate, T0.TrsfrRef, T0.PayNoDoc, T0.NoDocSum, T0.NoDocSumFC, T0.DocCurr," +
-                            " T0.DocRate, T0.SysRate, T0.DocTotal, T0.DocTotalFC, T0.Ref1, T0.Ref2, T0.CounterRef, T0.Comments, T0.JrnlMemo," +
-                            " T0.TransId, T0.DocTime, T0.ShowAtCard, T0.CntctCode, T0.DdctSumSy, T0.CashSumSy, T0.CredSumSy, T0.CheckSumSy," +
-                            " T0.TrsfrSumSy, T0.NoDocSumSy, T0.DocTotalSy, T0.StornoRate, T0.UpdateDate, T0.CreateDate, T0.TaxDate, T0.Series, " +
-                            "T0.BankCode, T0.BankAcct, T0.VatGroup, T0.VatSum, T0.VatSumFC, T0.VatSumSy, T0.FinncPriod, T0.VatPrcnt, T0.Dcount," +
-                            " T0.DcntSum, T0.DcntSumFC, T0.WtCode, T0.WtSum, T0.WtSumFrgn, T0.WtSumSys, T0.Proforma, T0.BpAct, T0.BcgSum, " +
-                            "T0.BcgSumFC, T0.BcgSumSy, T0.PayToCode, T0.IsPaytoBnk, T0.PBnkCnt, T0.PBnkCode, T0.PBnkAccnt FROM " + Sanitize(DBName) + ".[dbo]." + "ORCT T0 ";
+                        querystring = "SELECT T0.DocEntry,T0.DocNum, T0.DocType,T0.Canceled, T0.DocDate," +
+                            " T0.DocDueDate, T0.CardCode, T0.CardName, " +
+                            "T0.TrsfrAcct, " +
+                            " T0.DocCurr," +
+                            "  T0.DocTotal,T0.Comments," +
+                            "T0.BankCode, T0.BankAcct FROM " + Sanitize(DBName) + ".[dbo]." + "ORCT T0 ";
 
                     }
                     using (SqlCommand cmd = new SqlCommand(querystring))
@@ -543,16 +539,12 @@ namespace TokenBasedAPI.Controllers
                     }
                     else
                     {
-                        querystring = "SELECT T0.DocEntry,T0.DocNum, T0.DocType,T0.Canceled, T0.Handwrtten, T0.Printed, T0.DocDate," +
-                            " T0.DocDueDate, T0.CardCode, T0.CardName, T0.DdctPrcnt, T0.DdctSum, T0.DdctSumFC, T0.CashAcct, " +
-                            "T0.CashSum, T0.CashSumFC, T0.CreditSum, T0.CredSumFC, T0.CheckAcct, T0.CheckSum, T0.CheckSumFC, T0.TrsfrAcct, " +
-                            "T0.TrsfrSum, T0.TrsfrSumFC, T0.TrsfrDate, T0.TrsfrRef, T0.PayNoDoc, T0.NoDocSum, T0.NoDocSumFC, T0.DocCurr," +
-                            " T0.DocRate, T0.SysRate, T0.DocTotal, T0.DocTotalFC, T0.Ref1, T0.Ref2, T0.CounterRef, T0.Comments, T0.JrnlMemo," +
-                            " T0.TransId, T0.DocTime, T0.ShowAtCard, T0.CntctCode, T0.DdctSumSy, T0.CashSumSy, T0.CredSumSy, T0.CheckSumSy," +
-                            " T0.TrsfrSumSy, T0.NoDocSumSy, T0.DocTotalSy, T0.StornoRate, T0.UpdateDate, T0.CreateDate, T0.TaxDate, T0.Series, " +
-                            "T0.BankCode, T0.BankAcct, T0.VatGroup, T0.VatSum, T0.VatSumFC, T0.VatSumSy, T0.FinncPriod, T0.VatPrcnt, T0.Dcount," +
-                            " T0.DcntSum, T0.DcntSumFC, T0.WtCode, T0.WtSum, T0.WtSumFrgn, T0.WtSumSys, T0.Proforma, T0.BpAct, T0.BcgSum, " +
-                            "T0.BcgSumFC, T0.BcgSumSy, T0.PayToCode, T0.IsPaytoBnk, T0.PBnkCnt, T0.PBnkCode, T0.PBnkAccnt FROM " + Sanitize(DBName) + ".[dbo]." + "OVPM T0 ";
+                        querystring = "SELECT T0.DocEntry,T0.DocNum, T0.DocType,T0.Canceled, T0.DocDate," +
+                            " T0.DocDueDate, T0.CardCode, T0.CardName, " +
+                            "T0.TrsfrAcct, " +
+                            " T0.DocCurr," +
+                            "  T0.DocTotal,T0.Comments," +
+                            "T0.BankCode, T0.BankAcct FROM " + Sanitize(DBName) + ".[dbo]." + "OVPM T0 ";
 
                     }
                     using (SqlCommand cmd = new SqlCommand(querystring))
@@ -578,8 +570,6 @@ namespace TokenBasedAPI.Controllers
             catch (Exception ex)
             {
 
-                HttpResponseMessage exeption_response = null;
-                exeption_response.Content = new StringContent(ex.Message, Encoding.UTF8, "application/json");
                 return Problem(ex.Message);
             }
 
@@ -1419,7 +1409,7 @@ namespace TokenBasedAPI.Controllers
                 }
                 else
                 {
-                    querystring = "SELECT T0.ItemCode, T0.ItemName, T0.ItemType,T1.Price,T1.PriceList FROM   " + Sanitize(DBName) + ".[dbo]." + "OITM T0(nolock) INNER JOIN   " + Sanitize(DBName) + ".[dbo]." + "ITM1 T1 ON T0.ItemCode = T1.ItemCode ";
+                    querystring = "SELECT T0.ItemCode, T0.ItemName, T0.ItemType,T1.Price,T1.PriceList, T0.OnHand, T0.VatGourpSa, T0.DfltWH FROM   " + Sanitize(DBName) + ".[dbo]." + "OITM T0(nolock) INNER JOIN   " + Sanitize(DBName) + ".[dbo]." + "ITM1 T1 ON T0.ItemCode = T1.ItemCode ";
 
                 }
                 using (SqlCommand cmd = new SqlCommand(querystring))
@@ -2140,7 +2130,7 @@ namespace TokenBasedAPI.Controllers
         {
             public string DocEntry { get; set; }
             public string DocNum { get; set; }
-            public string DocTotal { get; set; }
+            public decimal DocTotal { get; set; }
             public string PaymentMode { get; set; }
 
 
@@ -2169,7 +2159,7 @@ namespace TokenBasedAPI.Controllers
             public string DocType { get; set; }
             public string CANCELED { get; set; }
             public string DocStatus { get; set; }
-            public string DocTotal { get; set; }
+            public decimal DocTotal { get; set; }
             public string VatSum { get; set; }
             public string DocDiscount { get; set; }
             public string DocNum { get; set; }
@@ -2178,7 +2168,7 @@ namespace TokenBasedAPI.Controllers
             public string Remarks { get; set; }
             public List<MarketingDocument_Rows> MarketingDocument_Rows { get; set; }
             public List<Payment_Rows> Payment_Rows { get; set; }
-
+            public string? CreateDate { get; set; }
         }
 
         [HttpGet]
@@ -2316,7 +2306,7 @@ namespace TokenBasedAPI.Controllers
                 ,
                         DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                 ,
-                        DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                 ,
                         VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                 ,
@@ -2365,7 +2355,7 @@ namespace TokenBasedAPI.Controllers
                        ,
                         DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                        ,
-                        DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                        ,
                         VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                        ,
@@ -2545,7 +2535,7 @@ namespace TokenBasedAPI.Controllers
                 ,
                         DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                 ,
-                        DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                 ,
                         VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                 ,
@@ -2594,7 +2584,7 @@ namespace TokenBasedAPI.Controllers
                        ,
                         DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                        ,
-                        DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                        ,
                         VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                        ,
@@ -2750,7 +2740,7 @@ namespace TokenBasedAPI.Controllers
                 ,
                         DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                 ,
-                        DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                 ,
                         VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                 ,
@@ -2799,7 +2789,7 @@ namespace TokenBasedAPI.Controllers
                        ,
                         DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                        ,
-                        DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                        ,
                         VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                        ,
@@ -2819,6 +2809,215 @@ namespace TokenBasedAPI.Controllers
 
             return Ok(invoices);
         }
+
+        //[Authorize(Roles = "SuperAdmin, Admin, User")]
+        [HttpGet]
+        [Route("api/SAP/{DBName}/GetMarketingDocumentsByDate/{ObjectType}")]
+        public IActionResult GetMarketingDocumentsByDate(string DBName, string ObjectType, string dateFromFilter)
+
+
+        {
+            if (string.IsNullOrEmpty(dateFromFilter))
+                dateFromFilter = "1900-01-01";
+            string HeaderTable = "";
+            string RowsTable = "";
+            if (ObjectType == "SALESQOUTATION")
+            {
+                HeaderTable = "OQUT";
+                RowsTable = "QUT1";
+            }
+            else if (ObjectType == "SALESORDER")
+            {
+
+                HeaderTable = "ORDR";
+                RowsTable = "RDR1";
+            }
+            else if (ObjectType == "SALESCREDITNOTE")
+            {
+
+
+                HeaderTable = "ORIN";
+                RowsTable = "RIN1";
+            }
+            else if (ObjectType == "SALESINVOICE")
+            {
+
+                HeaderTable = "OINV";
+                RowsTable = "INV1";
+
+            }
+            else if (ObjectType == "PURCHASEREQUEST")
+            {
+
+                HeaderTable = "OPRQ";
+                RowsTable = "PRQ1";
+
+            }
+            else if (ObjectType == "PURCHASEQOUTATION")
+            {
+
+                HeaderTable = "OPQT";
+                RowsTable = "PQT1";
+            }
+            else if (ObjectType == "PURCHASEORDER")
+            {
+
+                HeaderTable = "OPOR";
+                RowsTable = "POR1";
+            }
+            else if (ObjectType == "PURCHASECREDITNOTE")
+            {
+
+
+                HeaderTable = "ORPC";
+                RowsTable = "RPC1";
+            }
+            else if (ObjectType == "GRPO")
+            {
+
+                HeaderTable = "OPDN";
+                RowsTable = "PDN1";
+            }
+            else if (ObjectType == "GOODSRETURN")
+            {
+
+
+                HeaderTable = "ORPD";
+                RowsTable = "RPD1";
+            }
+            else if (ObjectType == "PURCHASEINVOICE")
+            {
+
+                HeaderTable = "OPCH";
+                RowsTable = "PCH1";
+            }
+
+            List<MarketingDocumentHeader> invoices = new List<MarketingDocumentHeader>();
+
+
+            if (DbServerType == "SAPHANA")
+            {
+                //querystring = "select case WHEN T1.\"OnHand\"  >= '" + Sanitize(Quantity) + "' THEN  'Y' ELSE 'N' END AS \"QuantityOk\" from \"OITM\" T0   INNER JOIN \"OITW\"  T1  ON T0.\"ItemCode\" = T1.\"ItemCode\" INNER JOIN \"OWHS\" T2 ON T2.\"WhsCode\" = T1.\"WhsCode\" WHERE  T0.\"ItemCode\" = '" + Sanitize(ItemCode) + "' and T2.\"WhsCode\" = '" + Sanitize(WarehouseCode) + "'";
+                querystring = "select T0.\"DocEntry\",T0.\"DocNum\",T0.\"CardCode\", T0.\"CardName\", T0.\"DocDate\", T0.\"DocType\", T0.\"CANCELED\", T0.\"DocStatus\", T0.\"DocTotal\", T0.\"VatSum\" from  \"" + Sanitize(DBName) + "\" + \".OINV\" T0 ";
+
+            }
+            else
+            {
+                querystring = "select ISNULL(T0.DocEntry,'')'DocEntry',ISNULL(T0.DocNum,'') 'DocNum',ISNULL(T0.DocCur,'') 'DocCur',ISNULL(T0.CardCode,'') 'CardCode', ISNULL(T0.CardName,'') 'CardName'," +
+                   " ISNULL( T0.DocDate,'') 'DocDate', CreateDate, ISNULL( T0.DocDueDate,'') 'DocDueDate', ISNULL( T0.TaxDate,'') 'TaxDate',ISNULL(T0.DocType,'') 'DocType', ISNULL(T0.CANCELED,'') 'CANCELED', ISNULL(T0.DocStatus ,'') 'DocStatus'," +
+                   " ISNULL(T0.DocTotal,0)'DocTotal', ISNULL(T0.VatSum,0)'VatSum',ISNULL(T0.DiscSum,0) 'DiscSum' ,ISNULL( T0.Comments,'') 'Comments' from  " + Sanitize(DBName) + ".[dbo]." + HeaderTable + $" t0 (nolock) where T0.CreateDate >= '{dateFromFilter}' order by CreateDate";
+                // querystring = "select  T0.DocEntry,T0.DocNum,T0.CardCode, T0.CardName, T0.DocDate, T0.DocType, T0.CANCELED, T0.DocStatus, ISNULL(T0.DocTotal,0), T0.VatSum ,ISNULL(T0.DiscSum,0) from  "  + Sanitize(DBName) + ".[dbo]." + "OINV t0 (nolock) ";
+
+
+            }
+            DataTable dt = GetData(DBName, querystring);
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                if ((ObjectType.EndsWith("INVOICE")))
+                {
+
+                    MarketingDocumentHeader document = new MarketingDocumentHeader
+                    {
+
+
+                        DocEntry = Convert.ToString(dt.Rows[i]["DocEntry"])
+                ,
+                        DocNum = Convert.ToString(dt.Rows[i]["DocNum"])
+                ,
+                        DocCur = Convert.ToString(dt.Rows[i]["DocCur"])
+                ,
+                        CardCode = Convert.ToString(dt.Rows[i]["CardCode"])
+                ,
+                        CardName = Convert.ToString(dt.Rows[i]["CardName"])
+                ,
+                        DocDate = Convert.ToString(dt.Rows[i]["DocDate"])
+
+                 ,      CreateDate = Convert.ToDateTime(dt.Rows[i]["CreateDate"]).ToString("yyyy-MM-dd")
+
+                ,
+                        MarketingDocument = ObjectType,
+                        DocDueDate = Convert.ToString(dt.Rows[i]["DocDueDate"])
+
+                ,
+                        TaxDate = Convert.ToString(dt.Rows[i]["TaxDate"])
+
+                ,
+                        DocType = Convert.ToString(dt.Rows[i]["DocType"])
+                ,
+                        CANCELED = Convert.ToString(dt.Rows[i]["CANCELED"])
+                ,
+                        DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
+                ,
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
+                ,
+                        VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
+                ,
+                        DocDiscount = Convert.ToString(dt.Rows[i]["DiscSum"])
+                ,
+                        Remarks = Convert.ToString(dt.Rows[i]["Comments"])
+                ,
+                        MarketingDocument_Rows = GetMarketingDocumentRows(DBName, HeaderTable, RowsTable, Convert.ToString(dt.Rows[i]["DocEntry"])),
+                        Payment_Rows = GetPayment_Rows(DBName, HeaderTable, RowsTable, Convert.ToString(dt.Rows[i]["DocEntry"]))
+
+                    };
+                    invoices.Add(document);
+                }
+
+
+
+                else
+                {
+                    MarketingDocumentHeader document = new MarketingDocumentHeader
+                    {
+
+
+                        DocEntry = Convert.ToString(dt.Rows[i]["DocEntry"])
+                       ,
+                        DocNum = Convert.ToString(dt.Rows[i]["DocNum"])
+                       ,
+                        DocCur = Convert.ToString(dt.Rows[i]["DocCur"])
+                       ,
+                        CardCode = Convert.ToString(dt.Rows[i]["CardCode"])
+                       ,
+                        CardName = Convert.ToString(dt.Rows[i]["CardName"])
+                       ,
+                        DocDate = Convert.ToString(dt.Rows[i]["DocDate"])
+
+                       ,
+                        MarketingDocument = ObjectType,
+                        DocDueDate = Convert.ToString(dt.Rows[i]["DocDueDate"])
+
+                       ,
+                        TaxDate = Convert.ToString(dt.Rows[i]["TaxDate"])
+
+                       ,
+                        DocType = Convert.ToString(dt.Rows[i]["DocType"])
+                       ,
+                        CANCELED = Convert.ToString(dt.Rows[i]["CANCELED"])
+                       ,
+                        DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
+                       ,
+                        DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
+                       ,
+                        VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
+                       ,
+                        DocDiscount = Convert.ToString(dt.Rows[i]["DiscSum"])
+                       ,
+                        Remarks = Convert.ToString(dt.Rows[i]["Comments"])
+                       ,
+                        MarketingDocument_Rows = GetMarketingDocumentRows(DBName, HeaderTable, RowsTable, Convert.ToString(dt.Rows[i]["DocEntry"])),
+                        // Payment_Rows = GetPayment_Rows(DBName, HeaderTable, RowsTable, Convert.ToString(dt.Rows[i]["DocEntry"]))
+
+                    };
+                    invoices.Add(document);
+
+                }
+
+            }
+
+            return Ok(invoices);
+        }
+
         //  [Authorize(Roles = "SuperAdmin, Admin, User")]
 
         //  [Authorize(Roles = "SuperAdmin, Admin, User")]
@@ -2953,7 +3152,7 @@ namespace TokenBasedAPI.Controllers
                     ,
                     DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                     ,
-                    DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                    DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                     ,
                     VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                     ,
@@ -3111,7 +3310,7 @@ namespace TokenBasedAPI.Controllers
                     ,
                     DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                     ,
-                    DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                    DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                     ,
                     VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                     ,
@@ -3193,7 +3392,7 @@ namespace TokenBasedAPI.Controllers
                     ,
                     DocStatus = Convert.ToString(dt.Rows[i]["DocStatus"])
                     ,
-                    DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                    DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                     ,
                     VatSum = Convert.ToString(dt.Rows[i]["VatSum"])
                     ,
@@ -3317,7 +3516,7 @@ namespace TokenBasedAPI.Controllers
                      ,
                     DocNum = Convert.ToString(dt.Rows[i]["DocNum"])
                     ,
-                    DocTotal = Convert.ToString(dt.Rows[i]["DocTotal"])
+                    DocTotal = Decimal.Parse(Convert.ToString(dt.Rows[i]["DocTotal"]))
                     ,
                     PaymentMode = Convert.ToString(dt.Rows[i]["PaymentMode"])
 
@@ -3337,7 +3536,7 @@ namespace TokenBasedAPI.Controllers
             public double Balance { get; set; }
             public string Currency { get; set; }
             public double CreditLine { get; set; }
-            public double DebtLine { get; set; }
+            ///public double DebtLine { get; set; }
 
             public string GroupCode { get; set; }
             public string Telephone1 { get; set; }
@@ -3387,6 +3586,7 @@ namespace TokenBasedAPI.Controllers
             }
 
             DataTable dt = GetData(DBName, querystring);
+            //return Ok(dt);
             for (int i = 0; i < dt.Rows.Count; i++)
             {
 
@@ -4602,12 +4802,12 @@ namespace TokenBasedAPI.Controllers
                 //AddUpdateAppSettings("manager", SAPUserName);
                 //AddUpdateAppSettings("Password", SAPPassword);
 
-                DocDate = request.Header.DocDate;// (string)json.SelectToken("Header").SelectToken("DocDate");
+                DocDate = request.Header.PostingDate;// (string)json.SelectToken("Header").SelectToken("DocDate");
                 PostingDate = request.Header.PostingDate;// (string)json.SelectToken("Header").SelectToken("PostingDate");
                 DocDueDate = request.Header.DocDueDate;// (string)json.SelectToken("Header").SelectToken("DocDueDate");
                 DocCurrency = request.Header.DocCurrency;
                 RequiredDate = request.Header.RequiredDate;
-                ValidUntil = request.Header.ValidUntil;
+                ValidUntil = request.Header.PostingDate;
                 ObjectType = request.Header.ObjectType;
                 CardCode = request.Header.CardCode;
                 CardName = request.Header.CardName;
@@ -4617,7 +4817,7 @@ namespace TokenBasedAPI.Controllers
 
 
 
-                DocType = request.Header.DocType;
+                DocType = request.Header.ObjectType;
                 SourceNumber = request.Header.SourceNumber;
                 Action = request.Header.Action;
                 Rounding = request.Header.Rounding;
@@ -5027,7 +5227,7 @@ namespace TokenBasedAPI.Controllers
                 if (oDoc.Add() != 0)
                 {
 
-                    oCompany.GetLastError(out nErr, out erMsg);
+                      oCompany.GetLastError(out nErr, out erMsg);
                     //if (string.IsNullOrEmpty(erMsg))
                     //{
 

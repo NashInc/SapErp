@@ -47,7 +47,7 @@ namespace SAPCORE.Models
         [JsonPropertyName("CreateDateTime")]
         public string CreateDateTime { get; set; }
         public string? Currency { get; internal set; }
-        public string Active { get; internal set; }
+        public string Active { get; set; }
         public string? PayTermsGrpCode { get; internal set; }
     }
 
